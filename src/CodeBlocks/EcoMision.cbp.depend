@@ -1,0 +1,78 @@
+# depslib dependency file v1.0
+1779840707 source:c:\users\calvo\onedrive\desktop\ecomision\animalherido.cpp
+	"AnimalHerido.h"
+	"Explorador.h"
+	<iostream>
+
+1779840707 c:\users\calvo\onedrive\desktop\ecomision\animalherido.h
+	"ElementoInteractivo.h"
+	<iostream>
+
+1779840708 c:\users\calvo\onedrive\desktop\ecomision\elementointeractivo.h
+	<string>
+
+1779853646 c:\users\calvo\onedrive\desktop\ecomision\explorador.h
+	<string>
+
+1779856962 source:c:\users\calvo\onedrive\desktop\ecomision\ecomision.cpp
+	"EcoMision.h"
+	"AnimalHerido.h"
+	"PlantaMedicinal.h"
+	"ResiduoContaminante.h"
+	<iostream>
+
+1779856962 c:\users\calvo\onedrive\desktop\ecomision\ecomision.h
+	"Reserva.h"
+	"Explorador.h"
+
+1779853647 c:\users\calvo\onedrive\desktop\ecomision\reserva.h
+	"Zona.h"
+	<unordered_map>
+	<string>
+
+1779856518 c:\users\calvo\onedrive\desktop\ecomision\zona.h
+	<string>
+	<vector>
+	"ElementoInteractivo.h"
+
+1779840708 c:\users\calvo\onedrive\desktop\ecomision\plantamedicinal.h
+	"ElementoInteractivo.h"
+	<iostream>
+
+1779840708 c:\users\calvo\onedrive\desktop\ecomision\residuocontaminante.h
+	"ElementoInteractivo.h"
+
+1779840707 source:c:\users\calvo\onedrive\desktop\ecomision\elementointeractivo.cpp
+	"ElementoInteractivo.h"
+
+1779856590 source:c:\users\calvo\onedrive\desktop\ecomision\explorador.cpp
+	"Explorador.h"
+	"Zona.h"
+	<iostream>
+
+1779840708 source:c:\users\calvo\onedrive\desktop\ecomision\main.cpp
+	"EcoMision.h"
+
+1779840708 source:c:\users\calvo\onedrive\desktop\ecomision\plantamedicinal.cpp
+	"PlantaMedicinal.h"
+	"Explorador.h"
+	<iostream>
+
+1779853647 source:c:\users\calvo\onedrive\desktop\ecomision\reserva.cpp
+	"Reserva.h"
+	<iostream>
+	"Zona.h"
+
+1779840708 source:c:\users\calvo\onedrive\desktop\ecomision\residuocontaminante.cpp
+	"ResiduoContaminante.h"
+	"Explorador.h"
+	<iostream>
+
+1779856518 source:c:\users\calvo\onedrive\desktop\ecomision\zona.cpp
+	"Zona.h"
+	"ElementoInteractivo.h"
+	"Explorador.h"
+	<vector>
+	<iostream>
+	<algorithm>
+
