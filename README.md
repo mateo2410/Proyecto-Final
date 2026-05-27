@@ -91,7 +91,7 @@ El juego corre en la consola (CMD) y es completamente interactivo. Te muestro ca
 
 ### 🟢 Menú principal
 
-![Menú principal](docs/img/Menu_interactivo.png)
+![Menú principal](docs/img/Menu%20interactivo.png)
 
 Este es el menú que aparece apenas inicia el juego. Aquí eliges qué hacer en cada turno escribiendo el número de la opción.
 
@@ -99,7 +99,7 @@ Este es el menú que aparece apenas inicia el juego. Aquí eliges qué hacer en 
 
 ### 1️⃣ Estado del explorador
 
-![Estado del explorador](docs/img/Estado_del_explorador.png)
+![Estado del explorador](docs/img/Estado%20del%20explorador.png)
 
 Muestra los datos actuales del explorador: nombre, energía restante, puntaje ambiental, cuántos elementos ha recolectado y en qué zona se encuentra. En el ejemplo el explorador se llama **Westcol** y está en el **Bosque Húmedo** con energía completa.
 
@@ -107,7 +107,7 @@ Muestra los datos actuales del explorador: nombre, energía restante, puntaje am
 
 ### 2️⃣ Explorar zona actual
 
-![Explorar zona](docs/img/Eploracion_zona_actual__objetios_disponibles_en_ella.png)
+![Explorar zona](docs/img/Eploracion%20zona%20actual,%20objetios%20disponibles%20en%20ella.png)
 
 Lista todos los elementos disponibles en la zona donde está parado el explorador. En este caso el bosque húmedo tiene un **Animal Herido** y una **Planta Medicinal** con los que se puede interactuar.
 
@@ -115,7 +115,7 @@ Lista todos los elementos disponibles en la zona donde está parado el explorado
 
 ### 3️⃣ Interactuar con elemento por posición
 
-![Interactuar por posición](docs/img/Interactuar_con_elemento_por_posicion.png)
+![Interactuar por posición](docs/img/Interactuar%20con%20elemento%20por%20posicion.png)
 
 Permite interactuar con un elemento escribiendo su número en la lista. Aquí elegimos el **0** (Animal Herido) y al ayudarlo ganamos **+10 puntos ambientales**.
 
@@ -123,7 +123,7 @@ Permite interactuar con un elemento escribiendo su número en la lista. Aquí el
 
 ### 4️⃣ Interactuar con elemento por nombre
 
-![Interactuar por nombre](docs/img/interactuar_con_el_elemento_por_nombre_.png)
+![Interactuar por nombre](docs/img/interactuar%20con%20el%20elemento%20por%20nombre..png)
 
 Hace lo mismo que la opción anterior, pero ahora escribiendo el nombre del elemento en vez del número. Útil cuando no recuerdas la posición exacta.
 
@@ -131,7 +131,7 @@ Hace lo mismo que la opción anterior, pero ahora escribiendo el nombre del elem
 
 ### 5️⃣ Cambiar de zona
 
-![Cambiar de zona](docs/img/cambiar_de_zona_.png)
+![Cambiar de zona](docs/img/cambiar%20de%20zona,.png)
 
 Muestra los códigos de las zonas disponibles en la reserva (`vivero`, `rio`, `bosque`) y permite moverse a la que escribas. En el ejemplo nos cambiamos al **rio**.
 
@@ -139,7 +139,7 @@ Muestra los códigos de las zonas disponibles en la reserva (`vivero`, `rio`, `b
 ---
 ### 6️⃣ Ver reserva completa
 
-![Ver reserva completa](docs/img/ver_reserva_completa.png)
+![Ver reserva completa](docs/img/ver%20reserva%20completa.png)
 
 Muestra el listado completo de todas las zonas que existen en la reserva con su respectivo código. Es útil para saber a dónde te puedes mover antes de usar la opción de cambiar de zona. En el ejemplo aparecen los tres códigos disponibles: `vivero`, `rio` y `bosque`.
 
