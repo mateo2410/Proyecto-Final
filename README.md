@@ -135,6 +135,14 @@ Hace lo mismo que la opción anterior, pero ahora escribiendo el nombre del elem
 
 Muestra los códigos de las zonas disponibles en la reserva (`vivero`, `rio`, `bosque`) y permite moverse a la que escribas. En el ejemplo nos cambiamos al **rio**.
 
+
+---
+### 6️⃣ Ver reserva completa
+
+![Ver reserva completa](docs/img/ver_reserva_completa.png)
+
+Muestra el listado completo de todas las zonas que existen en la reserva con su respectivo código. Es útil para saber a dónde te puedes mover antes de usar la opción de cambiar de zona. En el ejemplo aparecen los tres códigos disponibles: `vivero`, `rio` y `bosque`.
+
 ---
 
 ### 0️⃣ Salir
