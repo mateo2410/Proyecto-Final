@@ -270,26 +270,94 @@ classDiagram
 
 
 ```
-
 ## Matriz de Decisiones
 
 > Esta matriz resume las decisiones principales que se tomaron durante la evolución del UML y por qué esos cambios mejoraron el diseño del proyecto.
 
-| Decisión                                         | Alternativas consideradas                                                   | Decisión final                                                                     | Justificación                                                                                                                                          | Riesgo si se modela mal                                                                                  |
-| ------------------------------------------------ | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| Cómo representar las zonas                       | `vector`, `map`, `unordered_map`                                            | `unordered_map<string, Zona*>`                                                     | Se eligió porque la reserva busca zonas usando un código, por ejemplo `"bosque"` o `"rio"`. Así es más directo encontrar una zona por su nombre clave. | Se puede complicar la búsqueda de zonas o mezclar la lógica del mapa con la lógica del juego.            |
-| Cómo guardar los elementos de una zona           | Un solo `ElementoInteractivo`, arreglo fijo, `vector`                       | `vector<ElementoInteractivo*>`                                                     | Una zona puede tener varios elementos, no solo uno. Con el `vector` se pueden agregar plantas, animales o residuos de forma dinámica.                  | La zona quedaría limitada a un solo elemento o sería difícil agregar nuevos objetos durante el juego.    |
-| Cómo permitir distintos tipos de elementos       | Usar muchos `if/else`, clases separadas sin relación, herencia              | Crear una clase base `ElementoInteractivo`                                         | Se usó una clase base para que todos los elementos tengan una estructura común y puedan interactuar con el explorador.                                 | El código se volvería repetitivo y cada nuevo elemento obligaría a modificar muchas partes del programa. |
-| Cómo hacer que cada elemento actúe diferente     | Un método general en `Zona`, condicionales por tipo, polimorfismo           | Método `interactuar()` en cada clase hija                                          | Cada elemento sabe qué debe hacer: la planta da energía, el animal da puntaje y el residuo quita energía. Esto hace el diseño más ordenado.            | La clase `Zona` terminaría haciendo demasiadas cosas y el código sería más difícil de mantener.          |
-| Cómo conectar objetos en C++                     | Guardar objetos completos, referencias, punteros                            | Usar punteros como `Explorador*`, `Zona*` y `ElementoInteractivo*`                 | Los punteros permiten relacionar objetos sin copiarlos completos. Además ayudan a trabajar con herencia y polimorfismo.                                | Se podrían crear copias innecesarias o perder el comportamiento real de las clases hijas.                |
-| Cómo representar la zona actual del explorador   | Guardar el nombre de la zona, guardar una copia de `Zona`, usar puntero     | `Zona* zonaActual`                                                                 | El explorador solo necesita saber en qué zona está. Con un puntero apunta directamente a la zona actual sin duplicarla.                                | El explorador podría quedar con una zona desactualizada o una copia que no refleja los cambios reales.   |
-| Cómo interactuar con elementos                   | Solo por posición, solo por nombre, ambas opciones                          | `interactuar(int indice, Explorador*)` e `interactuar(string nombre, Explorador*)` | Se dejaron las dos formas porque dan más flexibilidad: el usuario puede elegir por número o por nombre del elemento.                                   | La interacción sería menos clara para el usuario o dependería de una sola forma de búsqueda.             |
-| Cómo inicializar los objetos                     | Crear objetos vacíos y llenar datos después, usar constructores             | Agregar constructores en las clases principales                                    | Los constructores permiten crear los objetos con sus datos importantes desde el inicio, como nombre, energía o zona.                                   | Los objetos podrían quedar incompletos o con valores incorrectos al momento de usarlos.                  |
-| Cómo manejar el explorador dentro de `EcoMision` | Objeto directo, variable global, puntero                                    | `Explorador* explorador`                                                           | Se usó puntero porque el explorador se crea dentro del sistema y se controla desde la clase principal del juego.                                       | Podría haber problemas de acceso, copias innecesarias o mala organización de la lógica principal.        |
-| Cómo organizar la clase principal                | Poner todo en `main`, repartir lógica sin control, usar `EcoMision`         | `EcoMision` controla el flujo del sistema                                          | La clase `EcoMision` centraliza el inicio del juego, la creación de zonas, elementos y explorador. Así el `main` queda más limpio.                     | El programa quedaría desordenado y sería más difícil explicar qué parte controla el sistema.             |
-| Cómo mostrar información del jugador             | Mostrar datos desde varias clases, acceder directo a atributos, usar método | `mostrarInfo()` en `Explorador`                                                    | El explorador es quien tiene su energía, puntaje y zona actual, por eso tiene sentido que él mismo muestre su información.                             | Se rompería el encapsulamiento o habría código repetido mostrando los mismos datos en varias partes.     |
-| Cómo mejorar el diseño final                     | Mantener todo lo inicial, eliminar clases, ajustar detalles                 | Conservar clases principales y limpiar el UML                                      | La versión final mantiene lo importante: reserva, zonas, explorador y elementos interactivos, pero con una estructura más cercana al código real.      | El UML podría no coincidir con el programa y sería más difícil sustentarlo.                              |
+<table>
+  <thead>
+    <tr>
+      <th>Decisión</th>
+      <th>Alternativas consideradas</th>
+      <th>Decisión final</th>
+      <th>Justificación</th>
+      <th>Riesgo si se modela mal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cómo representar las zonas</td>
+      <td><code>vector</code>, <code>map</code>, <code>unordered_map</code></td>
+      <td><code>unordered_map&lt;string, Zona*&gt;</code></td>
+      <td>La reserva busca zonas por código, por ejemplo <code>bosque</code> o <code>rio</code>. Por eso era más práctico usar una estructura que permitiera buscar directamente por clave.</td>
+      <td>Se puede complicar la búsqueda de zonas o mezclar la lógica del mapa con la lógica del juego.</td>
+    </tr>
+    <tr>
+      <td>Cómo guardar los elementos de una zona</td>
+      <td>Un solo <code>ElementoInteractivo</code>, arreglo fijo, <code>vector</code></td>
+      <td><code>vector&lt;ElementoInteractivo*&gt;</code></td>
+      <td>Una zona puede tener varios elementos. Con un vector se pueden agregar plantas, animales o residuos de forma dinámica.</td>
+      <td>La zona quedaría limitada a un solo elemento o sería difícil agregar nuevos objetos.</td>
+    </tr>
+    <tr>
+      <td>Cómo permitir distintos tipos de elementos</td>
+      <td>Muchos <code>if/else</code>, clases separadas sin relación, herencia</td>
+      <td>Clase base <code>ElementoInteractivo</code></td>
+      <td>Todos los elementos comparten una idea común: pueden interactuar con el explorador. Por eso se creó una clase base.</td>
+      <td>El código se volvería repetitivo y cada nuevo elemento obligaría a modificar muchas partes.</td>
+    </tr>
+    <tr>
+      <td>Cómo hacer que cada elemento actúe diferente</td>
+      <td>Método general en <code>Zona</code>, condicionales por tipo, polimorfismo</td>
+      <td>Método <code>interactuar()</code> en cada clase hija</td>
+      <td>Cada elemento sabe qué debe hacer: la planta da energía, el animal da puntaje y el residuo quita energía.</td>
+      <td>La clase <code>Zona</code> terminaría haciendo demasiadas cosas y sería más difícil mantener el código.</td>
+    </tr>
+    <tr>
+      <td>Cómo conectar objetos en C++</td>
+      <td>Guardar objetos completos, referencias, punteros</td>
+      <td>Usar <code>Explorador*</code>, <code>Zona*</code> y <code>ElementoInteractivo*</code></td>
+      <td>Los punteros permiten relacionar objetos sin copiarlos completos. También ayudan a trabajar con herencia y polimorfismo.</td>
+      <td>Se podrían crear copias innecesarias o perder el comportamiento real de las clases hijas.</td>
+    </tr>
+    <tr>
+      <td>Cómo representar la zona actual del explorador</td>
+      <td>Guardar el nombre, guardar una copia de <code>Zona</code>, usar puntero</td>
+      <td><code>Zona* zonaActual</code></td>
+      <td>El explorador solo necesita apuntar a la zona donde está, sin duplicarla.</td>
+      <td>El explorador podría quedar con una zona desactualizada o una copia que no refleja los cambios reales.</td>
+    </tr>
+    <tr>
+      <td>Cómo interactuar con elementos</td>
+      <td>Solo por posición, solo por nombre, ambas opciones</td>
+      <td><code>interactuar(int indice, Explorador*)</code> e <code>interactuar(string nombre, Explorador*)</code></td>
+      <td>Se dejaron ambas formas porque dan más flexibilidad al usuario para elegir un elemento.</td>
+      <td>La interacción sería menos clara o dependería de una sola forma de búsqueda.</td>
+    </tr>
+    <tr>
+      <td>Cómo inicializar los objetos</td>
+      <td>Crear objetos vacíos, llenar datos después, usar constructores</td>
+      <td>Constructores en las clases principales</td>
+      <td>Los constructores permiten crear los objetos con sus datos importantes desde el inicio.</td>
+      <td>Los objetos podrían quedar incompletos o con valores incorrectos.</td>
+    </tr>
+    <tr>
+      <td>Cómo organizar la clase principal</td>
+      <td>Poner todo en <code>main</code>, repartir lógica sin control, usar <code>EcoMision</code></td>
+      <td><code>EcoMision</code> controla el flujo del sistema</td>
+      <td>La clase <code>EcoMision</code> centraliza el inicio del juego, la creación de zonas, elementos y explorador.</td>
+      <td>El programa quedaría desordenado y sería más difícil explicar qué parte controla el sistema.</td>
+    </tr>
+    <tr>
+      <td>Cómo mostrar información del jugador</td>
+      <td>Mostrar datos desde varias clases, acceder directo a atributos, usar método</td>
+      <td><code>mostrarInfo()</code> en <code>Explorador</code></td>
+      <td>El explorador es quien tiene su energía, puntaje y zona actual, por eso tiene sentido que él mismo muestre su información.</td>
+      <td>Se rompería el encapsulamiento o habría código repetido.</td>
+    </tr>
+  </tbody>
+</table>
 
 
----
+## Matriz de Decisiones
 
