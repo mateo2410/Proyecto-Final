@@ -270,92 +270,23 @@ classDiagram
 
 
 
-## Matriz de Decisiones
 
-> Esta matriz resume las decisiones principales que se tomaron durante la evolución del UML y por qué esos cambios mejoraron el diseño del proyecto.
+# Matriz de Decisiones de Diseño
+## Proyecto: EcoMisión
+## Integrantes: Diego Calvo y Mateo Orozco
 
-<table>
-  <thead>
-    <tr>
-      <th>Decisión</th>
-      <th>Alternativas consideradas</th>
-      <th>Decisión final</th>
-      <th>Justificación</th>
-      <th>Riesgo si se modela mal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Cómo representar las zonas</td>
-      <td><code>vector</code>, <code>map</code>, <code>unordered_map</code></td>
-      <td><code>unordered_map&lt;string, Zona*&gt;</code></td>
-      <td>La reserva busca zonas por código, por ejemplo <code>bosque</code> o <code>rio</code>. Por eso era más práctico usar una estructura que permitiera buscar directamente por clave.</td>
-      <td>Se puede complicar la búsqueda de zonas o mezclar la lógica del mapa con la lógica del juego.</td>
-    </tr>
-    <tr>
-      <td>Cómo guardar los elementos de una zona</td>
-      <td>Un solo <code>ElementoInteractivo</code>, arreglo fijo, <code>vector</code></td>
-      <td><code>vector&lt;ElementoInteractivo*&gt;</code></td>
-      <td>Una zona puede tener varios elementos. Con un vector se pueden agregar plantas, animales o residuos de forma dinámica.</td>
-      <td>La zona quedaría limitada a un solo elemento o sería difícil agregar nuevos objetos.</td>
-    </tr>
-    <tr>
-      <td>Cómo permitir distintos tipos de elementos</td>
-      <td>Muchos <code>if/else</code>, clases separadas sin relación, herencia</td>
-      <td>Clase base <code>ElementoInteractivo</code></td>
-      <td>Todos los elementos comparten una idea común: pueden interactuar con el explorador. Por eso se creó una clase base.</td>
-      <td>El código se volvería repetitivo y cada nuevo elemento obligaría a modificar muchas partes.</td>
-    </tr>
-    <tr>
-      <td>Cómo hacer que cada elemento actúe diferente</td>
-      <td>Método general en <code>Zona</code>, condicionales por tipo, polimorfismo</td>
-      <td>Método <code>interactuar()</code> en cada clase hija</td>
-      <td>Cada elemento sabe qué debe hacer: la planta da energía, el animal da puntaje y el residuo quita energía.</td>
-      <td>La clase <code>Zona</code> terminaría haciendo demasiadas cosas y sería más difícil mantener el código.</td>
-    </tr>
-    <tr>
-      <td>Cómo conectar objetos en C++</td>
-      <td>Guardar objetos completos, referencias, punteros</td>
-      <td>Usar <code>Explorador*</code>, <code>Zona*</code> y <code>ElementoInteractivo*</code></td>
-      <td>Los punteros permiten relacionar objetos sin copiarlos completos. También ayudan a trabajar con herencia y polimorfismo.</td>
-      <td>Se podrían crear copias innecesarias o perder el comportamiento real de las clases hijas.</td>
-    </tr>
-    <tr>
-      <td>Cómo representar la zona actual del explorador</td>
-      <td>Guardar el nombre, guardar una copia de <code>Zona</code>, usar puntero</td>
-      <td><code>Zona* zonaActual</code></td>
-      <td>El explorador solo necesita apuntar a la zona donde está, sin duplicarla.</td>
-      <td>El explorador podría quedar con una zona desactualizada o una copia que no refleja los cambios reales.</td>
-    </tr>
-    <tr>
-      <td>Cómo interactuar con elementos</td>
-      <td>Solo por posición, solo por nombre, ambas opciones</td>
-      <td><code>interactuar(int indice, Explorador*)</code> e <code>interactuar(string nombre, Explorador*)</code></td>
-      <td>Se dejaron ambas formas porque dan más flexibilidad al usuario para elegir un elemento.</td>
-      <td>La interacción sería menos clara o dependería de una sola forma de búsqueda.</td>
-    </tr>
-    <tr>
-      <td>Cómo inicializar los objetos</td>
-      <td>Crear objetos vacíos, llenar datos después, usar constructores</td>
-      <td>Constructores en las clases principales</td>
-      <td>Los constructores permiten crear los objetos con sus datos importantes desde el inicio.</td>
-      <td>Los objetos podrían quedar incompletos o con valores incorrectos.</td>
-    </tr>
-    <tr>
-      <td>Cómo organizar la clase principal</td>
-      <td>Poner todo en <code>main</code>, repartir lógica sin control, usar <code>EcoMision</code></td>
-      <td><code>EcoMision</code> controla el flujo del sistema</td>
-      <td>La clase <code>EcoMision</code> centraliza el inicio del juego, la creación de zonas, elementos y explorador.</td>
-      <td>El programa quedaría desordenado y sería más difícil explicar qué parte controla el sistema.</td>
-    </tr>
-    <tr>
-      <td>Cómo mostrar información del jugador</td>
-      <td>Mostrar datos desde varias clases, acceder directo a atributos, usar método</td>
-      <td><code>mostrarInfo()</code> en <code>Explorador</code></td>
-      <td>El explorador es quien tiene su energía, puntaje y zona actual, por eso tiene sentido que él mismo muestre su información.</td>
-      <td>Se rompería el encapsulamiento o habría código repetido.</td>
-    </tr>
-  </tbody>
+| Decisión | Alternativas consideradas | Decisión final | Justificación | Riesgo si se modela mal |
+|----------|--------------------------|----------------|---------------|------------------------|
+| Cómo representar las zonas en la reserva | vector, arreglo estático, unordered_map | unordered_map<string, Zona*> | La reserva busca zonas por código como "bosque" o "rio", con unordered_map la búsqueda es directa e inmediata | Con arreglo o vector habría que recorrer todos los elementos para encontrar una zona por código |
+| Cómo guardar los elementos dentro de una zona | arreglo estático, vector | vector<ElementoInteractivo*> | El vector crece automáticamente sin necesidad de definir un tamaño máximo, una zona puede tener diferente cantidad de elementos | Con arreglo estático se podría quedar sin espacio o desperdiciar memoria reservando más de lo necesario |
+| Cómo manejar los diferentes tipos de elementos | Clases separadas sin relación, switch por tipo, herencia | Herencia desde ElementoInteractivo como clase abstracta | Las clases hijas comparten el método interactuar() cambiando solo el comportamiento, permite usar polimorfismo en Zona | Sin herencia habría código duplicado y no se podría recorrer los elementos con un solo for |
+| Cómo activar un elemento dentro de la zona | Solo por índice, solo por nombre, las dos opciones | Sobrecarga de interactuar(): una versión por índice (int) y otra por nombre (string) | Permite dos formas naturales de acceso sin duplicar lógica interna, mejora la experiencia del usuario | Sin sobrecarga se necesitaría un solo método con lógica condicional más difícil de leer y mantener |
+| Cómo representar la relación Explorador-Zona | El explorador guarda una copia de la zona, guarda un puntero, la zona guarda al explorador | Explorador tiene un Zona* (asociación) | El explorador visita zonas pero no las posee, la zona existe independientemente del explorador | Si el explorador guarda copia los cambios en la zona no se reflejan correctamente |
+| Cómo separar los archivos del proyecto | Todo en un solo archivo, separar por clases | Cada clase en su propio .h y .cpp | Mejor organización, más fácil de mantener y depurar, cada archivo tiene una sola responsabilidad | Si todo está en un solo archivo el código se vuelve difícil de leer y mantener |
+| Cómo manejar la búsqueda por nombre sin distinción de mayúsculas | Exigir escritura exacta, convertir a minúsculas antes de comparar | Usar std::transform con tolower antes de comparar | El usuario puede escribir el nombre en cualquier combinación de mayúsculas y minúsculas y el programa lo encuentra igual | Si se exige escritura exacta la experiencia del usuario es mala y el programa parece no funcionar |
+| Cómo leer las opciones del menú | std::cin directo, std::getline con stoi | std::getline con stoi protegido con try-catch | Evita problemas con el buffer de entrada y no se cae si el usuario escribe algo inválido o presiona Enter vacío | Con cin directo quedan caracteres pendientes en el buffer que causan comportamiento inesperado en el menú |
+| Cómo coordinar toda la experiencia del juego | Todo en main, dividir en funciones libres, clase coordinadora | Clase EcoMision con método iniciarSistema() | El main queda limpio con una sola llamada, cada responsabilidad tiene su clase y método | Si todo está en main se sobrecarga y no hay encapsulamiento ni organización |
+| Orden de construcción de las clases | De afuera hacia adentro, aleatorio, de adentro hacia afuera | De adentro hacia afuera: Explorador, ElementoInteractivo, hijas, Zona, Reserva, EcoMision | Cada clase depende de las anteriores, este orden evita errores de compilación por referencias a clases no definidas | Si se construye en orden incorrecto el compilador no reconoce las clases y hay errores en cascada |
 </table>
 
 
