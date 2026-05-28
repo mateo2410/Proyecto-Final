@@ -268,16 +268,7 @@ classDiagram
 
 * La versión final muestra mejor la idea del sistema: `EcoMision` controla el juego, `Reserva` administra las zonas, `Zona` contiene elementos, `Explorador` representa al jugador y los elementos interactivos modifican su energía o puntaje.
 
----
 
-## Matriz de Decisiones
-
-Pega esto **reemplazando** la parte donde tienes:
-
-```md
-## Matriz de Decisiones
-
-> Pendiente por completar.
 ```
 
 ## Matriz de Decisiones
