@@ -359,5 +359,5 @@ classDiagram
 </table>
 
 
-## Matriz de Decisiones
+
 
