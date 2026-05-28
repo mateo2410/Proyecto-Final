@@ -76,7 +76,7 @@ después de entender por qué getline era mejor en este caso.
 
 ## ¿Qué parte del proyecto debe defender cada integrante?
 
-### Diego Calvo y Mateo Orozco
+### Diego Calvo y Mateo Rivera
 Ambos integrantes tienen conocimiento completo del código ya que trabajamos juntos 
 en cada parte del proyecto desde el diseño inicial hasta la implementación final. 
 Estudiamos y construimos cada clase juntos, por lo tanto ambos podemos defender 
