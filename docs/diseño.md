@@ -269,7 +269,7 @@ classDiagram
 * La versión final muestra mejor la idea del sistema: `EcoMision` controla el juego, `Reserva` administra las zonas, `Zona` contiene elementos, `Explorador` representa al jugador y los elementos interactivos modifican su energía o puntaje.
 
 
-```
+
 ## Matriz de Decisiones
 
 > Esta matriz resume las decisiones principales que se tomaron durante la evolución del UML y por qué esos cambios mejoraron el diseño del proyecto.
